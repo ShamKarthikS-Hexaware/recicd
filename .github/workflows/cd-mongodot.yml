@@ -11,7 +11,7 @@ name: cd-mongodot
         required: true
   workflow_run:
     workflows:
-      - ci-mongodot
+      - ci-mongodot1
     branches:
       - main
     paths:
