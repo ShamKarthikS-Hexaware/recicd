@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+WORKDIR /src
+COPY ["Code/mongodot.Api/mongodot.Api.csproj", "Code/mongodot.Api/"]
+COPY ["Code/mongodot.BusinessEntities/mongodot.BusinessEntities.csproj", "Code/mongodot.BusinessEntities/"]
+COPY ["Code/mongodot.BusinessServices/mongodot.BusinessServices.csproj", "Code/mongodot.BusinessServices/"]
+COPY ["Code/mongodot.Data/mongodot.Data.csproj", "Code/mongodot.Data/"]
+COPY ["Code/mongodot.Contracts/mongodot.Contracts.csproj", "Code/mongodot.Contracts/"]
+COPY ["Code/mongodot.Test.Api/mongodot.Test.Api.csproj", "Code/mongodot.Test.Api/"]
+COPY ["Code/mongodot.Test.Business/mongodot.Test.Business.csproj", "Code/mongodot.Test.Business/"]
+RUN dotnet restore "Code/mongodot.Api/mongodot.Api.csproj"
+COPY . .
+WORKDIR "/src/Code/mongodot.Api"
+RUN dotnet build "mongodot.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "mongodot.Api.csproj" -c Release -o /app/publish
+
+WORKDIR /src
