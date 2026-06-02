@@ -58,7 +58,7 @@ jobs:
     environment: test
     steps:
       - name: Login to Azure Container Registry
-        uses: azure/docker-login@v1
+        uses: azure/docker-login@v2
         with:
           login-server: ${{ secrets.CR_LOGIN_SERVER }}
           username: ${{ secrets.CR_USERNAME }}
