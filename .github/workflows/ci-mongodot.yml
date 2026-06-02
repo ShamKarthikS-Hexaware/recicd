@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
         with:
